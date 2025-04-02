@@ -17,5 +17,8 @@ public class Planner extends BaseEntity{
     @Column(nullable = false, columnDefinition = "longtext")
     private String contents;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
 }
