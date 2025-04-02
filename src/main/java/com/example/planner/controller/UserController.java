@@ -2,6 +2,7 @@ package com.example.planner.controller;
 
 import com.example.planner.dto.SignUpRequestDto;
 import com.example.planner.dto.SignUpResponseDto;
+import com.example.planner.dto.UpdateRequestDto;
 import com.example.planner.dto.UserResponseDto;
 import com.example.planner.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,6 @@ public class UserController {
 
     }
 
-
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDto> findById(@PathVariable Long id) {
 
@@ -35,5 +35,15 @@ public class UserController {
 
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity<Void> updateUser(
+            @PathVariable Long id,
+            @RequestBody UpdateRequestDto requestDto
+    ) {
+
+        userService.updateUser(id, requestDto.getOldEmail(), requestDto.getNewEmail(), requestDto.getOldPassword(), requestDto.getNewPassword());
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }
