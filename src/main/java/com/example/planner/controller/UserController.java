@@ -25,6 +25,7 @@ public class UserController {
 
     }
 
+
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDto> findById(@PathVariable Long id) {
 
