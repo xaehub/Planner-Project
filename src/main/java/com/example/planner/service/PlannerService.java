@@ -53,4 +53,10 @@ public class PlannerService {
 
         return new PlannerWithUsernameResponseDto(username.getUsername(), findPlanner.getTitle(), findPlanner.getContents());
     }
+
+    public void delete(Long id) {
+        Planner findPlanner = findByIdOrElseThrow(id);
+
+        plannerRepository.delete(findPlanner);
+    }
 }

@@ -39,7 +39,13 @@ public class PlannerController {
         PlannerWithUsernameResponseDto plannerWithUsernameResponseDto = plannerService.findById(id);
 
         return new ResponseEntity<>(plannerWithUsernameResponseDto, HttpStatus.OK);
+    }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        plannerService.delete(id);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
