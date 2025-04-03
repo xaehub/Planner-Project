@@ -1,0 +1,70 @@
+package com.example.planner.planner.service;
+
+import com.example.planner.planner.dto.PlannerResponseDto;
+import com.example.planner.planner.dto.PlannerWithUsernameResponseDto;
+import com.example.planner.planner.entity.Planner;
+import com.example.planner.user.entity.User;
+import com.example.planner.planner.repository.PlannerRepository;
+import com.example.planner.user.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class PlannerService {
+
+    private final UserRepository userRepository;
+    private final PlannerRepository plannerRepository;
+
+    public User findUserByUsernameOrElseThrow(String username) {
+        return userRepository.findUserByUsername(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, username + "은(는) 없는 이름입니다."));
+    }
+
+    public Planner findByIdOrElseThrow(Long id) {
+        return plannerRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, id + "는 없는 아이디입니다."));
+    }
+
+
+    public PlannerResponseDto save(String title, String contents, String username) {
+
+        User findUsername = findUserByUsernameOrElseThrow(username);
+
+        Planner planner = new Planner(title, contents);
+        planner.setUser(findUsername);
+
+        Planner savedPlanner = plannerRepository.save(planner);
+
+        return new PlannerResponseDto(savedPlanner.getId(), savedPlanner.getTitle(), savedPlanner.getContents());
+    }
+
+    public List<PlannerResponseDto> findAll() {
+
+        return plannerRepository.findAll().stream().map(PlannerResponseDto::toDto).toList();
+    }
+
+    public PlannerWithUsernameResponseDto findById(Long id) {
+
+        Planner findPlanner = findByIdOrElseThrow(id);
+        User username = findPlanner.getUser();
+
+        return new PlannerWithUsernameResponseDto(username.getUsername(), findPlanner.getTitle(), findPlanner.getContents());
+    }
+
+    public void delete(Long id) {
+        Planner findPlanner = findByIdOrElseThrow(id);
+
+        plannerRepository.delete(findPlanner);
+    }
+
+    @Transactional
+    public void updatePlanner(Long id, String newTitle, String newContents) {
+        Planner findPlanner = findByIdOrElseThrow(id);
+
+        findPlanner.updatePlanner(newTitle,newContents);
+    }
+}
