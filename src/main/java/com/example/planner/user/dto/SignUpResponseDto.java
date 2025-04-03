@@ -1,4 +1,4 @@
-package com.example.planner.sign.dto;
+package com.example.planner.user.dto;
 
 import lombok.Getter;
 

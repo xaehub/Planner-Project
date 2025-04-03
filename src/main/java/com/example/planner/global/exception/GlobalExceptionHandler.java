@@ -29,4 +29,5 @@ public class GlobalExceptionHandler {
         // 400 Bad Request 응답
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
+
 }

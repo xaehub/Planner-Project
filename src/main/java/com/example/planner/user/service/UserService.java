@@ -1,6 +1,6 @@
 package com.example.planner.user.service;
 
-import com.example.planner.sign.dto.SignUpResponseDto;
+import com.example.planner.user.dto.SignUpResponseDto;
 import com.example.planner.user.dto.UserResponseDto;
 import com.example.planner.user.entity.User;
 import com.example.planner.user.repository.UserRepository;
