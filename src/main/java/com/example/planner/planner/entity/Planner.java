@@ -18,9 +18,11 @@ public class Planner extends BaseEntity {
     @Column(nullable = false)
     private String title;
 
+    // column 타입 text
     @Column(nullable = false, columnDefinition = "longtext")
     private String contents;
 
+    // 다대일 연관관계
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
