@@ -1,5 +1,6 @@
 package com.example.planner.user.service;
 
+import com.example.planner.global.config.PasswordEncoder;
 import com.example.planner.user.dto.SignUpResponseDto;
 import com.example.planner.user.dto.UserResponseDto;
 import com.example.planner.user.entity.User;
@@ -17,6 +18,9 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+
+    // 비밀번호 암호화 의존성 주입
+    private final PasswordEncoder passwordEncoder;
 
     /**
      * id 유저 정보를 조회하고 존재하지 않으면 예외 처리
@@ -36,9 +40,11 @@ public class UserService {
      */
     public SignUpResponseDto signUp(String username, String email, String password) {
 
-        User user = new User(username, email, password);
+        // 비밀번호 암호화
+        String encodedPassword = passwordEncoder.encode(password);
 
-        // 유저 저장
+        // User 객체에 암호화된 비밀번호 저장
+        User user = new User(username, email, encodedPassword);
         User savedUser = userRepository.save(user);
 
         return new SignUpResponseDto(savedUser.getId(), savedUser.getUsername(), savedUser.getEmail());
