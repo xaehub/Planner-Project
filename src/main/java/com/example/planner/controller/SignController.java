@@ -32,11 +32,16 @@ public class SignController {
         // 로그인 시도
         SignResponseDto responseDto = signService.login(dto.getEmail(), dto.getPassword());
 
+//        if (responseDto.equals(signService.login(dto.getEmail(), dto.getPassword()))) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+//                    .body(Collections.singletonMap("message", "로그인 실패!"));
+//        }
 
         // 세션 생성
         HttpSession session = request.getSession(true);
 
-        //로그인 정보 저장
+        //로그인 정보 세션에 저장
+        session.setAttribute("sessionKey", responseDto.getId());
         session.setAttribute(Const.LOGIN_USER, responseDto);
 
         // 로그인 성공하면 responseDto형태로 응답
