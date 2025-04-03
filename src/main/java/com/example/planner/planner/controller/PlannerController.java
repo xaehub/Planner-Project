@@ -78,16 +78,18 @@ public class PlannerController {
     /**
      * 일정 수정
      * @param id 수정할 일정 고유식별자
-     * @param requestDto 수정할 내용
-     * @return 수정 완료되면 HttpStatus코드 ok 반환
+     * @param requestDto 수정할 제목, 내용
+     * @return 수정 완료되면 HttpStatus OK 반환
      */
     @PatchMapping("{id}")
     public ResponseEntity<Void> updatePlanner (
             @PathVariable Long id,
-            @RequestBody UpdatePlannerRequestDto requestDto
+            @RequestBody @Valid UpdatePlannerRequestDto requestDto
     ) {
+        // plannerService에서 일정 수정 처리
         plannerService.updatePlanner(id, requestDto.getNewTitle(), requestDto.getNewContents());
 
+        // 수정 완료 후 200 OK 상태 코드 반환
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
