@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class PlannerService {
@@ -31,5 +33,10 @@ public class PlannerService {
         Planner savedPlanner = plannerRepository.save(planner);
 
         return new PlannerResponseDto(savedPlanner.getId(), savedPlanner.getTitle(), savedPlanner.getContents());
+    }
+
+    public List<PlannerResponseDto> findAll() {
+
+        return plannerRepository.findAll().stream().map(PlannerResponseDto::toDto).toList();
     }
 }
