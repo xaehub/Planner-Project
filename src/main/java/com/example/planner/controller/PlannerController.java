@@ -2,6 +2,7 @@ package com.example.planner.controller;
 
 import com.example.planner.dto.CreatePlannerRequestDto;
 import com.example.planner.dto.PlannerResponseDto;
+import com.example.planner.dto.PlannerWithUsernameResponseDto;
 import com.example.planner.service.PlannerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,6 +31,15 @@ public class PlannerController {
         List<PlannerResponseDto> plannerResponseDtoList = plannerService.findAll();
 
         return new ResponseEntity<>(plannerResponseDtoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PlannerWithUsernameResponseDto>findById(@PathVariable Long id) {
+
+        PlannerWithUsernameResponseDto plannerWithUsernameResponseDto = plannerService.findById(id);
+
+        return new ResponseEntity<>(plannerWithUsernameResponseDto, HttpStatus.OK);
+
     }
 
 }

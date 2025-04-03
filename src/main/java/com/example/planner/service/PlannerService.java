@@ -1,6 +1,7 @@
 package com.example.planner.service;
 
 import com.example.planner.dto.PlannerResponseDto;
+import com.example.planner.dto.PlannerWithUsernameResponseDto;
 import com.example.planner.entity.Planner;
 import com.example.planner.entity.User;
 import com.example.planner.repository.PlannerRepository;
@@ -23,6 +24,11 @@ public class PlannerService {
         return userRepository.findUserByUsername(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, username + "은(는) 없는 이름입니다."));
     }
 
+    public Planner findByIdOrElseThrow(Long id) {
+        return plannerRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, id + "는 없는 아이디입니다."));
+    }
+
+
     public PlannerResponseDto save(String title, String contents, String username) {
 
         User findUsername = findUserByUsernameOrElseThrow(username);
@@ -38,5 +44,13 @@ public class PlannerService {
     public List<PlannerResponseDto> findAll() {
 
         return plannerRepository.findAll().stream().map(PlannerResponseDto::toDto).toList();
+    }
+
+    public PlannerWithUsernameResponseDto findById(Long id) {
+
+        Planner findPlanner = findByIdOrElseThrow(id);
+        User username = findPlanner.getUser();
+
+        return new PlannerWithUsernameResponseDto(username.getUsername(), findPlanner.getTitle(), findPlanner.getContents());
     }
 }
