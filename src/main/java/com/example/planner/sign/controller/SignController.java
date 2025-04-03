@@ -59,6 +59,9 @@ public class SignController {
         return ResponseEntity.ok(Collections.singletonMap("message", "로그아웃 성공!!"));
     }
 
-
+    @ExceptionHandler(CustomExeption.class)
+    public ResponseEntity<?> customError() {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Collections.singletonMap("message", "이메일 또는 비밀번호가 잘못되었습니다."));
+    }
 
 }
