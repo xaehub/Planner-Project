@@ -5,12 +5,16 @@ import com.example.planner.planner.dto.PlannerResponseDto;
 import com.example.planner.planner.dto.PlannerWithUsernameResponseDto;
 import com.example.planner.planner.dto.UpdatePlannerRequestDto;
 import com.example.planner.planner.service.PlannerService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/plans")
@@ -25,11 +29,22 @@ public class PlannerController {
      * @return 생성된 일정 정보를 plannerResponseDto형태로 담아 반환
      */
     @PostMapping
-    public ResponseEntity<PlannerResponseDto> save(@RequestBody CreatePlannerRequestDto requestDto) {
+    public ResponseEntity<?> save(@Valid @RequestBody CreatePlannerRequestDto requestDto, BindingResult bindingResult) {
 
-        // 일정 생성 plannerService에 있는 save() 호출
+        // 유효성 검사 실패 시 처리
+        if (bindingResult.hasErrors()) {
+            // 오류 메시지 리스트로 변환하여 응답
+            List<String> errorMessages = bindingResult.getAllErrors().stream()
+                    .map(ObjectError::getDefaultMessage)
+                    .collect(Collectors.toList());
+
+            return ResponseEntity.badRequest().body(errorMessages); // 400 Bad Request와 함께 오류 메시지 반환
+        }
+
+        // 일정 생성
         PlannerResponseDto plannerResponseDto = plannerService.save(requestDto.getTitle(), requestDto.getContents(), requestDto.getUsername());
 
+        // 정상적으로 생성된 경우 ResponseEntity<PlannerResponseDto> 반환
         return new ResponseEntity<>(plannerResponseDto, HttpStatus.CREATED);
     }
 

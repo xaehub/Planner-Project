@@ -1,4 +1,4 @@
-package com.example.planner.global.exception;
+package com.example.planner.sign.exception;
 
 public class CustomExeption extends RuntimeException{
 

@@ -1,7 +1,7 @@
 package com.example.planner.sign.controller;
 
 import com.example.planner.global.common.Const;
-import com.example.planner.global.exception.CustomExeption;
+import com.example.planner.sign.exception.CustomExeption;
 import com.example.planner.sign.dto.SignRequestDto;
 import com.example.planner.sign.dto.SignResponseDto;
 import com.example.planner.sign.service.SignService;

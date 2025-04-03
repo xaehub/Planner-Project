@@ -1,6 +1,6 @@
 package com.example.planner.sign.service;
 
-import com.example.planner.global.exception.CustomExeption;
+import com.example.planner.sign.exception.CustomExeption;
 import com.example.planner.sign.dto.SignResponseDto;
 import com.example.planner.user.entity.User;
 import com.example.planner.sign.repository.SignRepository;
