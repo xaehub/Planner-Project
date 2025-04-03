@@ -11,9 +11,9 @@ public class SignResponseDto {
 
     private final String username;
 
-    public SignResponseDto(Long id, String email, String username) {
+    public SignResponseDto(Long id, String username, String email) {
         this.id = id;
-        this.email = email;
         this.username = username;
+        this.email = email;
     }
 }
