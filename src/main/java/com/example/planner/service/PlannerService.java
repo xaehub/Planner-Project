@@ -9,6 +9,7 @@ import com.example.planner.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -58,5 +59,12 @@ public class PlannerService {
         Planner findPlanner = findByIdOrElseThrow(id);
 
         plannerRepository.delete(findPlanner);
+    }
+
+    @Transactional
+    public void updatePlanner(Long id, String newTitle, String newContents) {
+        Planner findPlanner = findByIdOrElseThrow(id);
+
+        findPlanner.updatePlanner(newTitle,newContents);
     }
 }

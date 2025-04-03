@@ -3,6 +3,7 @@ package com.example.planner.controller;
 import com.example.planner.dto.CreatePlannerRequestDto;
 import com.example.planner.dto.PlannerResponseDto;
 import com.example.planner.dto.PlannerWithUsernameResponseDto;
+import com.example.planner.dto.UpdatePlannerRequestDto;
 import com.example.planner.service.PlannerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -40,6 +41,17 @@ public class PlannerController {
 
         return new ResponseEntity<>(plannerWithUsernameResponseDto, HttpStatus.OK);
     }
+
+    @PatchMapping("{id}")
+    public ResponseEntity<Void> updatePlanner (
+            @PathVariable Long id,
+            @RequestBody UpdatePlannerRequestDto requestDto
+    ) {
+        plannerService.updatePlanner(id, requestDto.getNewTitle(), requestDto.getNewContents());
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {

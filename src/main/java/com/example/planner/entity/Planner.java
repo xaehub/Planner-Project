@@ -35,4 +35,10 @@ public class Planner extends BaseEntity{
     public void setUser(User user) {
         this.user = user;
     }
+
+    public void updatePlanner(String title, String contents) {
+        this.title = title;
+        this.contents = contents;
+    }
+
 }
