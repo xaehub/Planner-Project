@@ -34,11 +34,10 @@ public class PlannerController {
         // 유효성 검사 실패 시 처리
         if (bindingResult.hasErrors()) {
             // 오류 메시지 리스트로 변환하여 응답
-            List<String> errorMessages = bindingResult.getAllErrors().stream()
-                    .map(ObjectError::getDefaultMessage)
-                    .collect(Collectors.toList());
+            List<String> errorMessages = bindingResult.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList());
 
-            return ResponseEntity.badRequest().body(errorMessages); // 400 Bad Request와 함께 오류 메시지 반환
+            // 400 Bad Request와 함께 오류 메시지 반환
+            return ResponseEntity.badRequest().body(errorMessages);
         }
 
         // 일정 생성

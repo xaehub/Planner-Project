@@ -56,13 +56,12 @@ public class SignController {
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpServletRequest request) {
 
-        //로그인 후 세션 가져오기
+        // 로그인 후 세션 가져오기
         HttpSession session = request.getSession(false);
 
         // 세션이 없으면 로그아웃 실패!! 반환
         if (session == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(Collections.singletonMap("message", "로그아웃 실패!!"));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("message", "로그아웃 실패!!"));
         }
 
         // 세션 무효화 ( 로그아웃 처리)

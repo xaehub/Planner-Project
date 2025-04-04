@@ -14,7 +14,7 @@ public class SignUpRequestDto {
     private final String username;
 
     @NotEmpty(message = "이메일은 필수 입력 값입니다.")
-    @Pattern(regexp = "^[A-Za-z0-9]+@google\\.com$", message = "유효한 이메일 형식이 아닙니다.")
+    @Pattern(regexp = "^[A-Za-z0-9]+@google\\.com$", message = "구글 계정으로 회원가입해 주세요.")
     private final String email;
 
     @NotEmpty(message = "비밀번호는 필수 입력 값입니다.")

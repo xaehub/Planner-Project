@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SignRepository extends JpaRepository<User, Long> {
 
-    User findUserByEmailAndPassword(String email, String password);
+    User findUserByEmail(String email);
 
 }

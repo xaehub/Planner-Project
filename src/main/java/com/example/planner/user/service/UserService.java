@@ -43,7 +43,7 @@ public class UserService {
         // 비밀번호 암호화
         String encodedPassword = passwordEncoder.encode(password);
 
-        // User 객체에 암호화된 비밀번호 저장
+        // user에 암호화에 성공한 비밀번호 저장
         User user = new User(username, email, encodedPassword);
         User savedUser = userRepository.save(user);
 

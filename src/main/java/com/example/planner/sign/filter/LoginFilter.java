@@ -43,7 +43,7 @@ public class LoginFilter implements Filter {
 
             // 세션이 없거나 sessionKey가 없으면 로그인되지 않은 상태로 간주
             if(session == null || session.getAttribute("sessionKey") == null) {
-                // HttpServletResponse에서 400번대 클라이언트 에러 발생시킴 **원인
+                // HttpServletResponse에서 400번대 클라이언트 에러 발생시킴
                 httpResponse.sendError(HttpServletResponse.SC_BAD_REQUEST);
             }
 

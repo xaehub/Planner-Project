@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> handleValidationExceptions(MethodArgumentNotValidException ex) {
         BindingResult bindingResult = ex.getBindingResult();
 
-        // 오류 메시지 추출
+        // 오류 메시지 errors에 담기
         List<String> errors = bindingResult.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList());
 
         // 400 Bad Request 응답
